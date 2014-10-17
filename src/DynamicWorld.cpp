@@ -1,10 +1,14 @@
 #include "DynamicWorld.h"
 
-#include "Party.h"
-
 DynamicWorld::DynamicWorld()
 {
     m_party = new Party;
+
+    m_tileSet.push_back(std::vector<Tile>(5));
+    m_tileSet.push_back(std::vector<Tile>(5));
+    m_tileSet.push_back(std::vector<Tile>(5));
+    m_tileSet.push_back(std::vector<Tile>(5));
+    m_tileSet.push_back(std::vector<Tile>(5));
 
     m_tileSet[0][0] = TILE_FOREST;
     m_tileSet[0][1] = TILE_FOREST;

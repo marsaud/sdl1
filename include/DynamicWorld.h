@@ -15,7 +15,7 @@ class DynamicWorld
     protected:
     private:
         Party* m_party;
-        Tile m_tileSet[5][5];
+        std::vector<std::vector<Tile> > m_tileSet;
 
 };
 

@@ -61,6 +61,7 @@
 		<Unit filename="include/ScreenZone.h" />
 		<Unit filename="include/TextRollZone.h" />
 		<Unit filename="include/TileDisplayZone.h" />
+		<Unit filename="include/TileSetLoader.h" />
 		<Unit filename="include/common.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="mount.png" />
@@ -71,6 +72,7 @@
 		<Unit filename="src/ScreenZone.cpp" />
 		<Unit filename="src/TextRollZone.cpp" />
 		<Unit filename="src/TileDisplayZone.cpp" />
+		<Unit filename="src/TileSetLoader.cpp" />
 		<Unit filename="warrior.png" />
 		<Unit filename="water.png" />
 		<Extensions>
