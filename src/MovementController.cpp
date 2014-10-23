@@ -35,5 +35,5 @@ Position MovementController::handleEvent(SDL_Event event) const
         }
     }
 
-    return m_dynamicWorld->getParty()->move(move);
+    return m_dynamicWorld->move(move);
 }

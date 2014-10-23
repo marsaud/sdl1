@@ -1,7 +1,5 @@
 #include "EventProcessor.h"
 
-using namespace std;
-
 EventProcessor::EventProcessor()
 {
 
@@ -12,9 +10,9 @@ EventProcessor::~EventProcessor()
     //dtor
 }
 
-string EventProcessor::process(SDL_Event const& event) const
+std::string EventProcessor::process(SDL_Event const& event) const
 {
-    string display;
+    std::string display;
 
     switch (event.type)
     {

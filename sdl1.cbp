@@ -50,10 +50,19 @@
 			<Add directory="C:/Program Files (x86)/CodeBlocks/share/SDL-1.2.15/lib" />
 		</Linker>
 		<Unit filename="coure.fon" />
+		<Unit filename="data/tilemap.txt" />
 		<Unit filename="dirt.png" />
+		<Unit filename="fonts/coure.fon" />
 		<Unit filename="forest.png" />
 		<Unit filename="grass.png" />
 		<Unit filename="hills.png" />
+		<Unit filename="images/dirt.png" />
+		<Unit filename="images/forest.png" />
+		<Unit filename="images/grass.png" />
+		<Unit filename="images/hills.png" />
+		<Unit filename="images/mount.png" />
+		<Unit filename="images/warrior.png" />
+		<Unit filename="images/water.png" />
 		<Unit filename="include/DynamicWorld.h" />
 		<Unit filename="include/EventProcessor.h" />
 		<Unit filename="include/MovementController.h" />

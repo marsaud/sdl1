@@ -80,7 +80,7 @@ int main ( int argc, char** argv )
     }
 
 
-    font = TTF_OpenFont("coure.fon", FONT_SIZE);
+    font = TTF_OpenFont("fonts/coure.fon", FONT_SIZE);
     if (NULL == font)
     {
         cerr << "Unable to load font: " << endl << TTF_GetError() << endl;
@@ -133,13 +133,14 @@ int main ( int argc, char** argv )
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         textRollZone->render(screen);
+        tileDisplayZone->render(world, screen);
+        // debug fashion
         screenZoneRight->render(patch::to_string(partyPos.x) + ":" + patch::to_string(partyPos.y),screen);
-        tileDisplayZone->render(world, 5, 5, screen);
+
 
         SDL_Flip(screen);
     } // end main loop
 
-    // delete processor;
     delete tileDisplayZone;
     delete textRollZone;
     delete screenZoneRight;

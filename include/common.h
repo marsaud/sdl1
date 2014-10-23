@@ -4,18 +4,19 @@
 typedef struct Position Position;
 struct Position
 {
-    int x;
-    int y;
+    unsigned int x;
+    unsigned int y;
 };
 
 enum Move
 {
-    MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_NOT
+    MOVE_NOT, MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT
 };
 
+#define TILE_LIST_SIZE  7
 enum Tile
 {
-    TILE_DIRT, TILE_GRASS, TILE_FOREST, TILE_HILL, TILE_MOUNT, TILE_WATER
+    TILE_NONE, TILE_DIRT, TILE_GRASS, TILE_FOREST, TILE_HILL, TILE_MOUNT, TILE_WATER
 };
 
 #endif // COMMON_H_INCLUDED

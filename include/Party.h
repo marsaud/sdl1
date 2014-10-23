@@ -9,6 +9,7 @@ class Party
         Party();
         virtual ~Party();
 
+        Position getPosition() const;
         Position move(Move move);
     protected:
     private:

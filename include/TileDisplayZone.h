@@ -12,7 +12,7 @@ class TileDisplayZone
     public:
         TileDisplayZone(Sint16 displayZoneLeft, Sint16 displayZoneTop);
         virtual ~TileDisplayZone();
-        void render(DynamicWorld const& world, int tileSetWidth, int tileSetHeight, SDL_Surface* screen) const;
+        void render(DynamicWorld const& world, SDL_Surface* screen) const;
     protected:
     private:
         SDL_Rect m_displayPos;
