@@ -7,6 +7,9 @@
 #include <vector>
 #include <string>
 
+/**
+* @todo see if we can overload operator<< to ease push
+*/
 class TextRollZone
 {
     public:

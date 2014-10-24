@@ -47,7 +47,7 @@ Position DynamicWorld::move(Move move)
 
 Tile DynamicWorld::getTile(unsigned int x, unsigned int y) const
 {
-    if ((m_tileSet.size() < y) || (m_tileSet[y].size() < x))
+    if ((m_tileSet.size() <= y) || (m_tileSet[y].size() <= x))
     {
         return TILE_NONE;
     }

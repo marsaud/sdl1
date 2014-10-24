@@ -32,6 +32,7 @@ Position Party::move(Move move)
     case MOVE_RIGHT:
         m_pos.x++;
         break;
+    case MOVE_NOT:
     default:
         break;
     }
