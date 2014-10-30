@@ -5,15 +5,15 @@
 
 class Party
 {
-    public:
-        Party();
-        virtual ~Party();
+public:
+    Party();
+    virtual ~Party();
 
-        Position getPosition() const;
-        Position move(Move move);
-    protected:
-    private:
-        Position m_pos;
+    Position getPosition() const;
+    Position move(Move const move);
+protected:
+private:
+    Position m_pos;
 };
 
 #endif // PARTY_H

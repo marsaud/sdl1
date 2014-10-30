@@ -16,7 +16,7 @@ Position Party::getPosition() const
     return m_pos;
 }
 
-Position Party::move(Move move)
+Position Party::move(Move const move)
 {
     switch (move)
     {

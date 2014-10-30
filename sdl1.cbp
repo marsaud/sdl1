@@ -64,7 +64,8 @@
 		<Unit filename="images/warrior.png" />
 		<Unit filename="images/water.png" />
 		<Unit filename="include/DynamicWorld.h" />
-		<Unit filename="include/EventProcessor.h" />
+		<Unit filename="include/Logger.h" />
+		<Unit filename="include/MessageProcessor.h" />
 		<Unit filename="include/MovementController.h" />
 		<Unit filename="include/Party.h" />
 		<Unit filename="include/ScreenZone.h" />
@@ -73,9 +74,11 @@
 		<Unit filename="include/TileSetLoader.h" />
 		<Unit filename="include/common.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="main.h" />
 		<Unit filename="mount.png" />
 		<Unit filename="src/DynamicWorld.cpp" />
-		<Unit filename="src/EventProcessor.cpp" />
+		<Unit filename="src/Logger.cpp" />
+		<Unit filename="src/MessageProcessor.cpp" />
 		<Unit filename="src/MovementController.cpp" />
 		<Unit filename="src/Party.cpp" />
 		<Unit filename="src/ScreenZone.cpp" />

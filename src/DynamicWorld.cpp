@@ -19,7 +19,7 @@ Party* DynamicWorld::getParty() const
     return m_party;
 }
 
-Position DynamicWorld::move(Move move)
+Position DynamicWorld::move(Move & move) const
 {
     Position position = m_party->getPosition();
 
@@ -45,7 +45,7 @@ Position DynamicWorld::move(Move move)
     return m_party->move(move);
 }
 
-Tile DynamicWorld::getTile(unsigned int x, unsigned int y) const
+Tile DynamicWorld::getTile(unsigned int const x, unsigned int const y) const
 {
     if ((m_tileSet.size() <= y) || (m_tileSet[y].size() <= x))
     {
@@ -57,12 +57,12 @@ Tile DynamicWorld::getTile(unsigned int x, unsigned int y) const
     }
 }
 
-std::vector<std::vector<Tile> > DynamicWorld::getTileSet() const
+DynamicWorld::TileSet DynamicWorld::getTileSet() const
 {
     return m_tileSet;
 }
 
-bool DynamicWorld::m_move(Move move, Position& position)
+bool DynamicWorld::m_move(Move const move, Position& position) const
 {
     bool moved = false;
     switch (move)

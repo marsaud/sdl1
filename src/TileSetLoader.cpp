@@ -10,9 +10,9 @@ TileSetLoader::~TileSetLoader()
     //dtor
 }
 
-bool TileSetLoader::load(std::vector<std::vector<Tile> > &tileSet)
+bool TileSetLoader::load(TileSetLoader::TileSet & tileSet) const
 {
-    std::ifstream tileFile("data/tilemap.txt");
+    std::ifstream tileFile("data/scenario1/tilemap.txt");
 
     if (!tileFile)
     {
@@ -33,23 +33,23 @@ bool TileSetLoader::load(std::vector<std::vector<Tile> > &tileSet)
 
             switch (tileChar)
             {
-            case 'd':
+            case TileSetLoader::DIRT:
                 tile = TILE_DIRT;
                 break;
-            case 'g':
+            case TileSetLoader::GRASS:
                 tile = TILE_GRASS;
                 break;
-            case 'f':
+            case TileSetLoader::FOREST:
                 tile = TILE_FOREST;
                 break;
-            case 'h':
+            case TileSetLoader::HILL:
                 tile = TILE_HILL;
                 break;
-            case 'w':
-                tile = TILE_WATER;
-                break;
-            case 'm':
+            case TileSetLoader::MOUNT:
                 tile = TILE_MOUNT;
+                break;
+            case TileSetLoader::WATER:
+                tile = TILE_WATER;
                 break;
             default:
                 tile = TILE_NONE;
@@ -58,15 +58,15 @@ bool TileSetLoader::load(std::vector<std::vector<Tile> > &tileSet)
 
             switch (tileChar)
             {
-            case 'd':
-            case 'g':
-            case 'h':
-            case 'w':
-            case 'm':
-            case 'f':
+            case TileSetLoader::DIRT:
+            case TileSetLoader::GRASS:
+            case TileSetLoader::FOREST:
+            case TileSetLoader::HILL:
+            case TileSetLoader::WATER:
+            case TileSetLoader::MOUNT:
                 tileSet.rbegin()->push_back(tile);
                 break;
-            case '\n':
+            case TileSetLoader::LINE_BREAK:
                 tileSet.push_back(std::vector<Tile>(0));
                 break;
             case '\r':

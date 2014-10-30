@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #endif
 
+#include "main.h"
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -11,23 +13,13 @@
 #include <SDL/SDL_ttf.h>
 
 #include "common.h"
-#include "EventProcessor.h"
+#include "Logger.h"
+#include "MessageProcessor.h"
 #include "DynamicWorld.h"
 #include "MovementController.h"
 #include "ScreenZone.h"
 #include "TextRollZone.h"
 #include "TileDisplayZone.h"
-
-#define SCREEN_HEIGHT   720
-#define SCREEN_WIDTH    1280
-
-#define TEXT_ZONE_TOP   576
-#define TEXT_ZONE_LEFT  20
-#define TEXT_ZONE_RIGHT 660
-
-#define FONT_SIZE       22
-
-using namespace std;
 
 namespace patch
 {
@@ -41,13 +33,16 @@ template < typename T > std::string to_string( const T& n )
 
 int main ( int argc, char** argv )
 {
+    DynamicWorld world;
+
     SDL_Surface* screen = NULL;
     TTF_Font* font = NULL;
     SDL_Event event;
-    EventProcessor processor;
-    string display = "Start";
 
-    DynamicWorld world;
+    Logger log;
+    MessageProcessor messageProcessor;
+
+    std::string display = "";
 
     MovementController movementController(&world);
     Position partyPos;
@@ -58,13 +53,13 @@ int main ( int argc, char** argv )
 
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
-        cerr << "Unable to init SDL: " << endl << SDL_GetError() << endl;
+        std::cerr << "Unable to init SDL: " << std::endl << SDL_GetError() << std::endl;
         return 1;
     }
 
     if (TTF_Init() == -1)
     {
-        cerr << "Unable to init SDL_ttf: " << endl << TTF_GetError() << endl;
+        std::cerr << "Unable to init SDL_ttf: " << std::endl << TTF_GetError() << std::endl;
         SDL_Quit();
         return 1;
     }
@@ -73,7 +68,7 @@ int main ( int argc, char** argv )
                               SDL_HWSURFACE|SDL_DOUBLEBUF);
     if (NULL == screen )
     {
-        cerr << "Unable to set video mode: " << endl << SDL_GetError() << endl;
+        std::cerr << "Unable to set video mode: " << std::endl << SDL_GetError() << std::endl;
         TTF_Quit();
         SDL_Quit();
         return 1;
@@ -83,7 +78,7 @@ int main ( int argc, char** argv )
     font = TTF_OpenFont("fonts/coure.fon", FONT_SIZE);
     if (NULL == font)
     {
-        cerr << "Unable to load font: " << endl << TTF_GetError() << endl;
+        std::cerr << "Unable to load font: " << std::endl << TTF_GetError() << std::endl;
         TTF_Quit();
         SDL_Quit();
         return 1;
@@ -91,7 +86,7 @@ int main ( int argc, char** argv )
 
     screenZoneRight = new ScreenZone(TEXT_ZONE_RIGHT, TEXT_ZONE_TOP, font);
     textRollZone = new TextRollZone(TEXT_ZONE_LEFT, TEXT_ZONE_TOP, font);
-    textRollZone->push(display);
+    // textRollZone->push(display);
     tileDisplayZone = new TileDisplayZone(0,0);
 
     // program main loop
@@ -122,9 +117,18 @@ int main ( int argc, char** argv )
                 break;
             }
 
-            display = processor.process(event);
-            if ("" != display)
-                textRollZone->push(display);
+            if (messageProcessor.process(event, log))
+            {
+                textRollZone->clear();
+                log.rewind();
+                for (unsigned int idx = 0; idx < TextRollZone::BUFFER_SIZE; idx++)
+                {
+                    if (!log.pop(display))
+                        break;
+                    else
+                        textRollZone->push(display);
+                }
+            }
             partyPos = movementController.handleEvent(event);
 
 
@@ -132,10 +136,10 @@ int main ( int argc, char** argv )
 
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
-        textRollZone->render(screen);
-        tileDisplayZone->render(world, screen);
+        textRollZone->render(screen, TextRollZone::REVERSE);
+        tileDisplayZone->render(screen, world);
         // debug fashion
-        screenZoneRight->render(patch::to_string(partyPos.x) + ":" + patch::to_string(partyPos.y),screen);
+        screenZoneRight->render(screen, patch::to_string(partyPos.x) + ":" + patch::to_string(partyPos.y));
 
 
         SDL_Flip(screen);
@@ -150,6 +154,6 @@ int main ( int argc, char** argv )
     TTF_Quit();
     SDL_Quit();
 
-    cout << "Exited cleanly" << endl;
+    std::cout << "Exited cleanly" << std::endl;
     return 0;
 }

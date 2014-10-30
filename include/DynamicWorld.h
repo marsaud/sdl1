@@ -1,28 +1,31 @@
 #ifndef DYNAMICWORLD_H
 #define DYNAMICWORLD_H
 
-#include "Party.h"
 #include <vector>
+
 #include "common.h"
+#include "Party.h"
 #include "TileSetLoader.h"
 
 class DynamicWorld
 {
-    public:
-        DynamicWorld();
-        virtual ~DynamicWorld();
+public:
+    DynamicWorld();
+    virtual ~DynamicWorld();
 
-        Party* getParty() const;
-        Position move(Move move);
-        Tile getTile(unsigned int x, unsigned int y) const;
+    typedef std::vector<std::vector<Tile> > TileSet;
 
-        std::vector<std::vector<Tile> > getTileSet() const;
-    protected:
-    private:
-        Party* m_party;
-        std::vector<std::vector<Tile> > m_tileSet;
+    Party* getParty() const;
+    Position move(Move & move) const;
+    Tile getTile(unsigned int const x, unsigned const int y) const;
+    DynamicWorld::TileSet getTileSet() const;
+protected:
+private:
+    Party* m_party;
+    DynamicWorld::TileSet m_tileSet;
 
-        bool m_move(Move move, Position & position);
+    /** @todo Why private? This could be static or more general...*/
+    bool m_move(Move const move, Position & position) const;
 
 };
 

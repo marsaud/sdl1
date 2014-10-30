@@ -1,6 +1,6 @@
 #include "TileDisplayZone.h"
 
-TileDisplayZone::TileDisplayZone(Sint16 displayZoneLeft, Sint16 displayZoneTop)
+TileDisplayZone::TileDisplayZone(Sint16 const displayZoneLeft, Sint16 const displayZoneTop)
 {
     m_displayPos = {displayZoneLeft, displayZoneTop};
     m_tiles = new SDL_Surface*[TILE_LIST_SIZE];
@@ -11,7 +11,10 @@ TileDisplayZone::TileDisplayZone(Sint16 displayZoneLeft, Sint16 displayZoneTop)
     m_tiles[TILE_HILL] = IMG_Load("images/hills.png");
     m_tiles[TILE_MOUNT] = IMG_Load("images/mount.png");
     m_tiles[TILE_WATER] = IMG_Load("images/water.png");
+    /** @todo Temporary */
     m_tiles[TILE_NONE] = IMG_Load("images/warrior.png");
+
+    m_computeTileMask();
 }
 
 TileDisplayZone::~TileDisplayZone()
@@ -24,7 +27,7 @@ TileDisplayZone::~TileDisplayZone()
     delete[] m_tiles;
 }
 
-void TileDisplayZone::render(DynamicWorld const& world, SDL_Surface* screen) const
+void TileDisplayZone::render(SDL_Surface* screen, DynamicWorld const& world) const
 {
     SDL_Rect displayPos = m_displayPos;
 
@@ -35,14 +38,24 @@ void TileDisplayZone::render(DynamicWorld const& world, SDL_Surface* screen) con
         for (std::vector<Tile>::iterator xit = yit->begin(); yit->end() != xit; ++xit)
         {
             SDL_BlitSurface(m_tiles[*xit], NULL, screen, &displayPos);
-            displayPos.x += 30;
+            displayPos.x += m_tileMask.w;
         }
         displayPos.x = m_displayPos.x;
-        displayPos.y += 30;
+        displayPos.y += m_tileMask.h;
     }
 
-    displayPos.x = 30 * world.getParty()->getPosition().x;
-    displayPos.y = 30 * world.getParty()->getPosition().y;
-
+    /** @todo Temporary */
+    displayPos.x = m_tileMask.w * world.getParty()->getPosition().x;
+    displayPos.y = m_tileMask.h * world.getParty()->getPosition().y;
     SDL_BlitSurface(m_tiles[TILE_NONE], NULL, screen, &displayPos);
+}
+
+void TileDisplayZone::m_computeTileMask()
+{
+    m_tileMask = {0,0};
+    for (int i = 0;i < TILE_LIST_SIZE;i++)
+    {
+        (m_tileMask.w >= m_tiles[i]->w) || (m_tileMask.w = m_tiles[i]->w);
+        (m_tileMask.h >= m_tiles[i]->h) || (m_tileMask.h = m_tiles[i]->h);
+    }
 }

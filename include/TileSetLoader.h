@@ -1,18 +1,23 @@
 #ifndef TILESETLOADER_H
 #define TILESETLOADER_H
 
-#include "common.h"
 #include <vector>
 #include <fstream>
 
+#include "common.h"
+
 class TileSetLoader
 {
-    public:
-        TileSetLoader();
-        virtual ~TileSetLoader();
-        bool load(std::vector<std::vector<Tile> >& tileSet);
-    protected:
-    private:
+public:
+    TileSetLoader();
+    virtual ~TileSetLoader();
+
+    typedef std::vector<std::vector<Tile> > TileSet;
+
+    bool load(TileSetLoader::TileSet & tileSet) const;
+protected:
+private:
+    enum DataFileChar {DIRT = 'd', FOREST = 'f', GRASS = 'g', HILL = 'h', MOUNT = 'm', WATER = 'w', LINE_BREAK = '\n'};
 };
 
 #endif // TILESETLOADER_H
