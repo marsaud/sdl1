@@ -14,7 +14,7 @@ public:
 
     typedef std::vector<std::vector<Tile> > TileSet;
 
-    bool load(TileSetLoader::TileSet & tileSet) const;
+    bool load(std::string const& tileMapPath, TileSetLoader::TileSet & tileSet) const;
 protected:
 private:
     enum DataFileChar {DIRT = 'd', FOREST = 'f', GRASS = 'g', HILL = 'h', MOUNT = 'm', WATER = 'w', LINE_BREAK = '\n'};

@@ -12,7 +12,9 @@ class ZoneSetLoader
         ZoneSetLoader();
         virtual ~ZoneSetLoader();
 
-        void load();
+        typedef std::vector<std::vector<std::string> > ZoneSet;
+
+        void load(std::string const& mapFilePath, ZoneSetLoader::ZoneSet & zoneMap);
     protected:
     private:
 };

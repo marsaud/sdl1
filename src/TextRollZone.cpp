@@ -21,7 +21,7 @@ void TextRollZone::push(std::string const text)
     }
 }
 
-void TextRollZone::render(SDL_Surface* screen, TextRollZone::Mode const reverse)
+void TextRollZone::render(SDL_Surface* screen, TextRollZone::Mode const reverse) const
 {
     SDL_Rect textPos = m_textPos;
     SDL_Surface* textZone = NULL;
@@ -33,7 +33,7 @@ void TextRollZone::render(SDL_Surface* screen, TextRollZone::Mode const reverse)
         step = -step;
     }
 
-    for(std::vector<std::string>::iterator it = m_textRoll.begin(); m_textRoll.end() != it; ++it)
+    for(std::vector<std::string>::const_iterator it = m_textRoll.cbegin(); m_textRoll.cend() != it; ++it)
     {
         textZone = TTF_RenderText_Solid(m_font, it->c_str(), m_color);
         SDL_BlitSurface(textZone, 0, screen, &textPos);

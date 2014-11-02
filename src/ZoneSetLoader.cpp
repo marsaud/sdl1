@@ -10,10 +10,9 @@ ZoneSetLoader::~ZoneSetLoader()
     //dtor
 }
 
-void ZoneSetLoader::load()
+void ZoneSetLoader::load(std::string const& mapFilePath, ZoneSetLoader::ZoneSet & zoneMap)
 {
-    std::ifstream zoneMapFile("data/scenario1/zonemap.txt");
-    std::vector<std::vector<std::string> > zoneMap;
+    std::ifstream zoneMapFile(mapFilePath);
     std::string line;
 
     while(std::getline(zoneMapFile, line))
@@ -22,7 +21,7 @@ void ZoneSetLoader::load()
         std::string cell;
 
         zoneMap.push_back(std::vector<std::string>(0));
-        while (std::getline(streamLine, cell))
+        while (std::getline(streamLine, cell, ';'))
         {
             zoneMap.rbegin()->push_back(cell);
         }

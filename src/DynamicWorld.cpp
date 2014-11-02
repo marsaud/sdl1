@@ -4,9 +4,25 @@ DynamicWorld::DynamicWorld()
 {
     m_party = new Party;
 
-    TileSetLoader* loader = new TileSetLoader;
-    loader->load(m_tileSet);
-    delete loader;
+    m_partyTile = {0,0};
+    m_partyZone = "a";
+
+    ZoneSetLoader* zLoader = new ZoneSetLoader;
+    zLoader->load("data/scenario1/zonemap.txt", m_zoneSet);
+    delete zLoader;
+
+    TileSetLoader* tLoader = new TileSetLoader;
+    for(ZoneSet::iterator yit = m_zoneSet.begin(); m_zoneSet.end() != yit; ++yit)
+    {
+        for(std::vector<std::string>::iterator xit = yit->begin(); yit->end() != xit; ++xit)
+        {
+            DynamicWorld::TileSet tileSet;
+            tLoader->load("data/scenario1/" + *xit + ".tm", tileSet);
+            m_loadedTileSets[*xit] = tileSet;
+        }
+    }
+    tLoader->load("data/scenario1/tilemap.txt", m_tileSet);
+    delete tLoader;
 }
 
 DynamicWorld::~DynamicWorld()
@@ -90,4 +106,24 @@ bool DynamicWorld::m_move(Move const move, Position& position) const
     }
 
     return moved;
+}
+
+DynamicWorld::ZoneSet DynamicWorld::getZoneSet() const
+{
+    return m_zoneSet;
+}
+
+DynamicWorld::TileSet DynamicWorld::getZone(std::string const& key) /** @todo const*/
+{
+    return m_loadedTileSets[key];
+}
+
+Position DynamicWorld::getPartyTile() const
+{
+    return m_partyTile;
+}
+
+std::string DynamicWorld::getPartyZone() const
+{
+    return m_partyZone;
 }

@@ -10,9 +10,9 @@ TileSetLoader::~TileSetLoader()
     //dtor
 }
 
-bool TileSetLoader::load(TileSetLoader::TileSet & tileSet) const
+bool TileSetLoader::load(std::string const& tileMapPath, TileSetLoader::TileSet & tileSet) const
 {
-    std::ifstream tileFile("data/scenario1/tilemap.txt");
+    std::ifstream tileFile(tileMapPath);
 
     if (!tileFile)
     {

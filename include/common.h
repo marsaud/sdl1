@@ -4,8 +4,8 @@
 typedef struct Position Position;
 struct Position
 {
-    unsigned int x;
-    unsigned int y;
+    unsigned short int x;
+    unsigned short int y;
 };
 
 enum Move

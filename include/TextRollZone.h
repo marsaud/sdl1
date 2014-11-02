@@ -24,7 +24,7 @@ public:
     enum Mode {FORWARD, REVERSE};
 
     void push(std::string const text);
-    void render(SDL_Surface* screen, TextRollZone::Mode const reverse = FORWARD);
+    void render(SDL_Surface* screen, TextRollZone::Mode const reverse = FORWARD) const;
     void clear();
 
     static const unsigned int BUFFER_SIZE = TEXTROLL_BUFFER_SIZE;

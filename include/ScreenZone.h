@@ -15,7 +15,6 @@ public:
     void render(SDL_Surface* screen, std::string const& display);
 protected:
 private:
-    SDL_Surface* m_text;
     SDL_Rect m_textPos;
     SDL_Color m_color;
     TTF_Font* m_font;

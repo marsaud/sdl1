@@ -14,7 +14,7 @@ ScreenZone::~ScreenZone()
 
 void ScreenZone::render(SDL_Surface* screen, std::string const& display)
 {
-    m_text = TTF_RenderText_Solid(m_font, display.c_str(), m_color);
-    SDL_BlitSurface(m_text, 0, screen, &m_textPos);
-    SDL_FreeSurface(m_text);
+    SDL_Surface* text = TTF_RenderText_Solid(m_font, display.c_str(), m_color);
+    SDL_BlitSurface(text, 0, screen, &m_textPos);
+    SDL_FreeSurface(text);
 }
