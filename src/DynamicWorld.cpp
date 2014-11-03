@@ -12,9 +12,9 @@ DynamicWorld::DynamicWorld()
     delete zLoader;
 
     TileSetLoader* tLoader = new TileSetLoader;
-    for(ZoneSet::iterator yit = m_zoneSet.begin(); m_zoneSet.end() != yit; ++yit)
+    for(DynamicWorld::ZoneSet::iterator yit = m_zoneSet.begin(); m_zoneSet.end() != yit; ++yit)
     {
-        for(std::vector<std::string>::iterator xit = yit->begin(); yit->end() != xit; ++xit)
+        for(DynamicWorld::ZoneSetLine::iterator xit = yit->begin(); yit->end() != xit; ++xit)
         {
             DynamicWorld::TileSet tileSet;
             tLoader->load("data/scenario1/" + *xit + ".tm", tileSet);

@@ -15,8 +15,10 @@ public:
     DynamicWorld();
     virtual ~DynamicWorld();
 
-    typedef std::vector<std::vector<Tile> > TileSet;
-    typedef std::vector<std::vector<std::string> > ZoneSet;
+    typedef std::vector<Tile> TileSetLine;
+    typedef std::vector<DynamicWorld::TileSetLine> TileSet;
+    typedef std::vector<std::string> ZoneSetLine;
+    typedef std::vector<DynamicWorld::ZoneSetLine> ZoneSet;
 
     Party* getParty() const;
     Position move(Move & move) const;

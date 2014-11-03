@@ -15,12 +15,14 @@ void ZoneSetLoader::load(std::string const& mapFilePath, ZoneSetLoader::ZoneSet 
     std::ifstream zoneMapFile(mapFilePath);
     std::string line;
 
+    /** @todo zone key MUST be unique */
+
     while(std::getline(zoneMapFile, line))
     {
         std::istringstream streamLine(line);
         std::string cell;
 
-        zoneMap.push_back(std::vector<std::string>(0));
+        zoneMap.push_back(ZoneSetLoader::ZoneSetLine(0));
         while (std::getline(streamLine, cell, ';'))
         {
             zoneMap.rbegin()->push_back(cell);
