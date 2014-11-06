@@ -19,7 +19,6 @@
 #include "MovementController.h"
 #include "ScreenZone.h"
 #include "TextRollZone.h"
-#include "TileDisplayZone.h"
 #include "ZoneDisplayZone.h"
 
 namespace patch
@@ -50,7 +49,6 @@ int main ( int argc, char** argv )
 
     ScreenZone* screenZoneRight = NULL;
     TextRollZone* textRollZone = NULL;
-    TileDisplayZone* tileDisplayZone = NULL;
     ZoneDisplayZone* zoneDisplayZone = NULL;
 
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
@@ -88,9 +86,7 @@ int main ( int argc, char** argv )
 
     screenZoneRight = new ScreenZone(TEXT_ZONE_RIGHT, TEXT_ZONE_TOP, font);
     textRollZone = new TextRollZone(TEXT_ZONE_LEFT, TEXT_ZONE_TOP, font);
-    // textRollZone->push(display);
-    tileDisplayZone = new TileDisplayZone(0,0);
-    zoneDisplayZone = new ZoneDisplayZone(450,0);
+    zoneDisplayZone = new ZoneDisplayZone(0,0);
 
     // program main loop
     bool done = false;
@@ -140,15 +136,13 @@ int main ( int argc, char** argv )
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         textRollZone->render(screen, TextRollZone::REVERSE);
-        tileDisplayZone->render(screen, world);
         zoneDisplayZone->render(screen, world);
         // debug fashion
-        screenZoneRight->render(screen, patch::to_string(partyPos.x) + ":" + patch::to_string(partyPos.y));
+        screenZoneRight->render(screen, patch::to_string(world.getPartyTile().x) + ":" + patch::to_string(world.getPartyTile().y));
 
         SDL_Flip(screen);
     } // end main loop
 
-    delete tileDisplayZone;
     delete textRollZone;
     delete screenZoneRight;
     TTF_CloseFont(font);
