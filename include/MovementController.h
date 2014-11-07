@@ -9,13 +9,12 @@
 class MovementController
 {
 public:
-    MovementController(DynamicWorld* const world);
+    MovementController();
     virtual ~MovementController();
 
-    Position handleEvent(SDL_Event const event) const;
+    Move handleEvent(SDL_Event const event) const;
 protected:
 private:
-    DynamicWorld* m_dynamicWorld;
 };
 
 #endif // MOVEMENTCONTROLLER_H

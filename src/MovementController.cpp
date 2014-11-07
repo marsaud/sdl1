@@ -1,8 +1,8 @@
 #include "MovementController.h"
 
-MovementController::MovementController(DynamicWorld* const world)
+MovementController::MovementController()
 {
-    m_dynamicWorld = world;
+    //ctor
 }
 
 MovementController::~MovementController()
@@ -10,7 +10,7 @@ MovementController::~MovementController()
     //dtor
 }
 
-Position MovementController::handleEvent(SDL_Event const event) const
+Move MovementController::handleEvent(SDL_Event const event) const
 {
     Move move = MOVE_NOT;
     if (SDL_KEYDOWN == event.type)
@@ -35,5 +35,5 @@ Position MovementController::handleEvent(SDL_Event const event) const
         }
     }
 
-    return m_dynamicWorld->move(move);
+    return move;
 }
