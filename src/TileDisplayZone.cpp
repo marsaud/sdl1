@@ -79,9 +79,9 @@ SDL_Rect TileDisplayZone::render(SDL_Surface* screen, DynamicWorld const& world)
     SDL_Rect finalSize = render(screen, world.getTileSet());
 
     /** @todo Temporary */
-    displayPos.x = m_tileMask.w * world.getParty()->getPosition().x + m_displayPos.x;
-    displayPos.y = m_tileMask.h * world.getParty()->getPosition().y + m_displayPos.y;
-    SDL_BlitSurface(m_tiles[TILE_NONE], NULL, screen, &displayPos);
+    displayPos.x = ms_tileMask.w * world.getParty()->getPosition().x + m_displayPos.x;
+    displayPos.y = ms_tileMask.h * world.getParty()->getPosition().y + m_displayPos.y;
+    SDL_BlitSurface(ms_tiles[TILE_NONE], NULL, screen, &displayPos);
 
     return finalSize;
 }
@@ -102,27 +102,27 @@ SDL_Rect TileDisplayZone::render(SDL_Surface* screen, DynamicWorld::TileSet cons
         {
             tileNumWidth++;
 
-            SDL_BlitSurface(m_tiles[*xit], NULL, screen, &displayPos);
-            displayPos.x += m_tileMask.w;
+            SDL_BlitSurface(ms_tiles[*xit], NULL, screen, &displayPos);
+            displayPos.x += ms_tileMask.w;
         }
 
         (tileNumWidth <= maxTileNumWidth) || (maxTileNumWidth = tileNumWidth);
         tileNumWidth = 0;
 
         displayPos.x = m_displayPos.x;
-        displayPos.y += m_tileMask.h;
+        displayPos.y += ms_tileMask.h;
     }
 
-    finalSize.w = maxTileNumWidth * m_tileMask.w;
-    finalSize.h = tileNumHeight * m_tileMask.h;
+    finalSize.w = maxTileNumWidth * ms_tileMask.w;
+    finalSize.h = tileNumHeight * ms_tileMask.h;
 
     return finalSize;
 }
 
 SDL_Rect TileDisplayZone::render(SDL_Surface* screen, Position tilePos, Tile tile) const
 {
-    SDL_Rect displayPos = {tilePos.x * m_tileMask.w + m_displayPos.x, tilePos.y * m_tileMask.h + m_displayPos.y};
-    SDL_BlitSurface(m_tiles[tile], NULL, screen, &displayPos);
+    SDL_Rect displayPos = {tilePos.x * ms_tileMask.w + m_displayPos.x, tilePos.y * ms_tileMask.h + m_displayPos.y};
+    SDL_BlitSurface(ms_tiles[tile], NULL, screen, &displayPos);
 
     return displayPos;
 }

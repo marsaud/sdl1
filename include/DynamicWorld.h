@@ -1,6 +1,7 @@
 #ifndef DYNAMICWORLD_H
 #define DYNAMICWORLD_H
 
+#include <string>
 #include <vector>
 #include <unordered_map>
 

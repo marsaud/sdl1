@@ -3,6 +3,7 @@
 
 typedef struct Position Position;
 typedef struct Position Movement;
+
 struct Position
 {
     signed short x;
@@ -10,6 +11,8 @@ struct Position
 
     Position& operator+=(Movement const& mov);
 };
+
+Position operator+(Position const& pos, Movement const& mov);
 
 enum Move
 {
@@ -20,8 +23,5 @@ enum Tile
 {
     TILE_NONE, TILE_DIRT, TILE_FOREST, TILE_GRASS, TILE_HILL, TILE_MOUNT, TILE_WATER, TILE_LIST_SIZE
 };
-
-Position operator+(Position const& pos, Movement const& mov);
-
 
 #endif // COMMON_H_INCLUDED

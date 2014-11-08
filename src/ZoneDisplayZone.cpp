@@ -3,11 +3,12 @@
 ZoneDisplayZone::ZoneDisplayZone(Sint16 const displayZoneLeft, Sint16 const displayZoneTop)
 {
     m_displayPos = {displayZoneLeft, displayZoneTop};
+    TileDisplayZone::init();
 }
 
 ZoneDisplayZone::~ZoneDisplayZone()
 {
-    //dtor
+    TileDisplayZone::free();
 }
 
 void ZoneDisplayZone::render(SDL_Surface* screen, DynamicWorld /** @todo const*/& world) const
