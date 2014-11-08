@@ -1,5 +1,48 @@
 #include "TileDisplayZone.h"
 
+SDL_Surface** TileDisplayZone::ms_tiles = NULL;
+SDL_Rect TileDisplayZone::ms_tileMask = {0,0};
+
+void TileDisplayZone::init()
+{
+    ms_loadTiles();
+    ms_computeTileMask();
+}
+
+void TileDisplayZone::ms_loadTiles()
+{
+    ms_tiles = new SDL_Surface*[TILE_LIST_SIZE];
+
+    ms_tiles[TILE_DIRT] = IMG_Load("images/dirt.png");
+    ms_tiles[TILE_FOREST] = IMG_Load("images/forest.png");
+    ms_tiles[TILE_GRASS] = IMG_Load("images/grass.png");
+    ms_tiles[TILE_HILL] = IMG_Load("images/hills.png");
+    ms_tiles[TILE_MOUNT] = IMG_Load("images/mount.png");
+    ms_tiles[TILE_WATER] = IMG_Load("images/water.png");
+    /** @todo Temporary */
+    ms_tiles[TILE_NONE] = IMG_Load("images/warrior.png");
+}
+
+void TileDisplayZone::ms_computeTileMask()
+{
+    for (int i = 0; i < TILE_LIST_SIZE; i++)
+    {
+        (ms_tileMask.w >= ms_tiles[i]->w) || (ms_tileMask.w = ms_tiles[i]->w);
+        (ms_tileMask.h >= ms_tiles[i]->h) || (ms_tileMask.h = ms_tiles[i]->h);
+    }
+}
+
+void TileDisplayZone::free()
+{
+    for (int i = 0; i < TILE_LIST_SIZE; ++i)
+    {
+        SDL_FreeSurface(ms_tiles[i]);
+    }
+
+    delete[] ms_tiles;
+    ms_tiles = NULL;
+}
+
 TileDisplayZone::TileDisplayZone(Sint16 const displayZoneLeft, Sint16 const displayZoneTop)
 {
     m_displayPos = {displayZoneLeft, displayZoneTop};
@@ -21,7 +64,7 @@ TileDisplayZone::TileDisplayZone(Sint16 const displayZoneLeft, Sint16 const disp
 
 TileDisplayZone::~TileDisplayZone()
 {
-    for (int i = 0;i < TILE_LIST_SIZE;++i)
+    for (int i = 0; i < TILE_LIST_SIZE; ++i)
     {
         SDL_FreeSurface(m_tiles[i]);
     }
@@ -87,7 +130,7 @@ SDL_Rect TileDisplayZone::render(SDL_Surface* screen, Position tilePos, Tile til
 void TileDisplayZone::m_computeTileMask()
 {
     m_tileMask = {0,0};
-    for (int i = 0;i < TILE_LIST_SIZE;i++)
+    for (int i = 0; i < TILE_LIST_SIZE; i++)
     {
         (m_tileMask.w >= m_tiles[i]->w) || (m_tileMask.w = m_tiles[i]->w);
         (m_tileMask.h >= m_tiles[i]->h) || (m_tileMask.h = m_tiles[i]->h);

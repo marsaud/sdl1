@@ -115,6 +115,8 @@ int main ( int argc, char** argv )
         screenZoneRight->render(screen, patch::to_string(world.getPartyTile().x) + ":" + patch::to_string(world.getPartyTile().y));
 
         SDL_Flip(screen);
+
+        SDL_Delay(40);
     } // end main loop
 
     delete textRollZone;
@@ -123,5 +125,5 @@ int main ( int argc, char** argv )
     shutdownVideo(screen, font);
 
     std::cout << "Exited cleanly" << std::endl;
-    return 0;
+    return EXIT_SUCCESS;
 }

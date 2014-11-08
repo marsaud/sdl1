@@ -5,14 +5,14 @@ int initVideo(int screenWidth, int screenHeight, std::string const& fontPath, in
     if ( SDL_Init( SDL_INIT_VIDEO ) < 0 )
     {
         std::cerr << "Unable to init SDL: " << std::endl << SDL_GetError() << std::endl;
-        return 1;
+        return EXIT_FAILURE;
     }
 
     if (TTF_Init() == -1)
     {
         std::cerr << "Unable to init SDL_ttf: " << std::endl << TTF_GetError() << std::endl;
         SDL_Quit();
-        return 1;
+        return EXIT_FAILURE;
     }
 
     screen = SDL_SetVideoMode(screenWidth, screenHeight, 16,
@@ -23,7 +23,7 @@ int initVideo(int screenWidth, int screenHeight, std::string const& fontPath, in
         std::cerr << "Unable to set video mode: " << std::endl << SDL_GetError() << std::endl;
         TTF_Quit();
         SDL_Quit();
-        return 1;
+        return EXIT_FAILURE;
     }
 
     font = TTF_OpenFont(fontPath.c_str(), fontSize);
@@ -33,7 +33,7 @@ int initVideo(int screenWidth, int screenHeight, std::string const& fontPath, in
         std::cerr << "Unable to load font: " << std::endl << TTF_GetError() << std::endl;
         TTF_Quit();
         SDL_Quit();
-        return 1;
+        return EXIT_FAILURE;
     }
 
     return 0;
