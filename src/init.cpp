@@ -15,8 +15,7 @@ int initVideo(int screenWidth, int screenHeight, std::string const& fontPath, in
         return EXIT_FAILURE;
     }
 
-    screen = SDL_SetVideoMode(screenWidth, screenHeight, 16,
-                              SDL_HWSURFACE|SDL_DOUBLEBUF);
+    screen = SDL_SetVideoMode(screenWidth, screenHeight, 16, SDL_HWSURFACE|SDL_DOUBLEBUF);
 
     if (NULL == screen )
     {
@@ -39,7 +38,7 @@ int initVideo(int screenWidth, int screenHeight, std::string const& fontPath, in
     return 0;
 }
 
-void shutdownVideo(SDL_Surface* screen, TTF_Font* font)
+void quitVideo(SDL_Surface* screen, TTF_Font* font)
 {
     TTF_CloseFont(font);
     SDL_FreeSurface(screen);

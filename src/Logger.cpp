@@ -24,7 +24,7 @@ void Logger::rewind()
     m_it = m_log.rbegin();
 }
 
-bool Logger::pop(std::string& logText)
+bool Logger::pop(std::string & logText)
 {
     if (m_log.rend() == m_it)
     {

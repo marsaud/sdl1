@@ -12,7 +12,8 @@ public:
     TileSetLoader();
     virtual ~TileSetLoader();
 
-    typedef std::vector<std::vector<Tile> > TileSet;
+    typedef std::vector<Tile> TileSetLine;
+    typedef std::vector<TileSetLoader::TileSetLine> TileSet;
 
     bool load(std::string const& tileMapPath, TileSetLoader::TileSet & tileSet) const;
 protected:

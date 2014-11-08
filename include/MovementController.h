@@ -12,7 +12,7 @@ public:
     MovementController();
     virtual ~MovementController();
 
-    Move handleEvent(SDL_Event const event) const;
+    Move handleEvent(SDL_Event const& event) const;
 protected:
 private:
 };

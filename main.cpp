@@ -122,7 +122,7 @@ int main ( int argc, char** argv )
     delete textRollZone;
     delete screenZoneRight;
 
-    shutdownVideo(screen, font);
+    quitVideo(screen, font);
 
     std::cout << "Exited cleanly" << std::endl;
     return EXIT_SUCCESS;

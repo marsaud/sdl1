@@ -12,7 +12,7 @@ TextRollZone::~TextRollZone()
     //dtor
 }
 
-void TextRollZone::push(std::string const text)
+void TextRollZone::push(std::string const& text)
 {
     m_textRoll.push_back(text);
     while (m_textRoll.size() > TextRollZone::BUFFER_SIZE)

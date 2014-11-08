@@ -28,7 +28,7 @@ bool TileSetLoader::load(std::string const& tileMapPath, TileSetLoader::TileSet 
         {
             if (0 == tileSet.size())
             {
-                tileSet.push_back(std::vector<Tile>(0));
+                tileSet.push_back(TileSetLoader::TileSetLine(0));
             }
 
             switch (tileChar)
@@ -67,7 +67,7 @@ bool TileSetLoader::load(std::string const& tileMapPath, TileSetLoader::TileSet 
                 tileSet.rbegin()->push_back(tile);
                 break;
             case TileSetLoader::LINE_BREAK:
-                tileSet.push_back(std::vector<Tile>(0));
+                tileSet.push_back(TileSetLoader::TileSetLine(0));
                 break;
             case '\r':
                 break;

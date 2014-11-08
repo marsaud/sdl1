@@ -10,7 +10,7 @@ ZoneSetLoader::~ZoneSetLoader()
     //dtor
 }
 
-void ZoneSetLoader::load(std::string const& mapFilePath, ZoneSetLoader::ZoneSet & zoneMap)
+void ZoneSetLoader::load(std::string const& mapFilePath, ZoneSetLoader::ZoneSet & zoneMap) const
 {
     std::ifstream zoneMapFile(mapFilePath);
     std::string line;

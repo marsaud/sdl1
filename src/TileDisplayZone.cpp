@@ -46,47 +46,14 @@ void TileDisplayZone::free()
 TileDisplayZone::TileDisplayZone(Sint16 const displayZoneLeft, Sint16 const displayZoneTop)
 {
     m_displayPos = {displayZoneLeft, displayZoneTop};
-
-    /** @todo load images out of this object !! Or make it static...*/
-    m_tiles = new SDL_Surface*[TILE_LIST_SIZE];
-
-    m_tiles[TILE_DIRT] = IMG_Load("images/dirt.png");
-    m_tiles[TILE_FOREST] = IMG_Load("images/forest.png");
-    m_tiles[TILE_GRASS] = IMG_Load("images/grass.png");
-    m_tiles[TILE_HILL] = IMG_Load("images/hills.png");
-    m_tiles[TILE_MOUNT] = IMG_Load("images/mount.png");
-    m_tiles[TILE_WATER] = IMG_Load("images/water.png");
-    /** @todo Temporary */
-    m_tiles[TILE_NONE] = IMG_Load("images/warrior.png");
-
-    m_computeTileMask();
 }
 
 TileDisplayZone::~TileDisplayZone()
 {
-    for (int i = 0; i < TILE_LIST_SIZE; ++i)
-    {
-        SDL_FreeSurface(m_tiles[i]);
-    }
-
-    delete[] m_tiles;
+    //dtor
 }
 
-SDL_Rect TileDisplayZone::render(SDL_Surface* screen, DynamicWorld const& world) const
-{
-    SDL_Rect displayPos = m_displayPos;
-
-    SDL_Rect finalSize = render(screen, world.getTileSet());
-
-    /** @todo Temporary */
-    displayPos.x = ms_tileMask.w * world.getParty()->getPosition().x + m_displayPos.x;
-    displayPos.y = ms_tileMask.h * world.getParty()->getPosition().y + m_displayPos.y;
-    SDL_BlitSurface(ms_tiles[TILE_NONE], NULL, screen, &displayPos);
-
-    return finalSize;
-}
-
-SDL_Rect TileDisplayZone::render(SDL_Surface* screen, DynamicWorld::TileSet const& tileSet) const
+SDL_Rect TileDisplayZone::render(SDL_Surface* screen, TileDisplayZone::TileSet const& tileSet) const
 {
     SDL_Rect displayPos = m_displayPos;
     SDL_Rect finalSize = {0,0,0,0};
@@ -94,11 +61,11 @@ SDL_Rect TileDisplayZone::render(SDL_Surface* screen, DynamicWorld::TileSet cons
     Uint16 maxTileNumWidth = 0;
     Uint16 tileNumHeight = 0;
 
-    for (std::vector<std::vector<Tile> >::const_iterator yit = tileSet.cbegin(); tileSet.cend() != yit; ++yit)
+    for (TileDisplayZone::TileSet::const_iterator yit = tileSet.cbegin(); tileSet.cend() != yit; ++yit)
     {
         tileNumHeight++;
 
-        for (std::vector<Tile>::const_iterator xit = yit->cbegin(); yit->cend() != xit; ++xit)
+        for (TileDisplayZone::TileSetLine::const_iterator xit = yit->cbegin(); yit->cend() != xit; ++xit)
         {
             tileNumWidth++;
 
@@ -125,14 +92,4 @@ SDL_Rect TileDisplayZone::render(SDL_Surface* screen, Position tilePos, Tile til
     SDL_BlitSurface(ms_tiles[tile], NULL, screen, &displayPos);
 
     return displayPos;
-}
-
-void TileDisplayZone::m_computeTileMask()
-{
-    m_tileMask = {0,0};
-    for (int i = 0; i < TILE_LIST_SIZE; i++)
-    {
-        (m_tileMask.w >= m_tiles[i]->w) || (m_tileMask.w = m_tiles[i]->w);
-        (m_tileMask.h >= m_tiles[i]->h) || (m_tileMask.h = m_tiles[i]->h);
-    }
 }

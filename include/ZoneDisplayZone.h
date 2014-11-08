@@ -16,7 +16,10 @@ public:
     ZoneDisplayZone(Sint16 const displayZoneLeft, Sint16 const displayZoneTop);
     virtual ~ZoneDisplayZone();
 
-    void render(SDL_Surface* screen, DynamicWorld  /** @todo const*/& world) const;
+    typedef std::vector<std::string> ZoneSetLine;
+    typedef std::vector<ZoneDisplayZone::ZoneSetLine> ZoneSet;
+
+    void render(SDL_Surface* screen, DynamicWorld  const& world) const;
 protected:
 private:
     SDL_Rect m_displayPos;

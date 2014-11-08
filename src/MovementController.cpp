@@ -10,12 +10,11 @@ MovementController::~MovementController()
     //dtor
 }
 
-Move MovementController::handleEvent(SDL_Event const event) const
+Move MovementController::handleEvent(SDL_Event const& event) const
 {
     Move move = MOVE_NOT;
     if (SDL_KEYDOWN == event.type)
     {
-
         switch (event.key.keysym.sym)
         {
         case SDLK_UP :

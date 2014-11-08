@@ -2,8 +2,6 @@
 
 DynamicWorld::DynamicWorld()
 {
-    m_party = new Party;
-
     m_movements[MOVE_NOT] = {0,0};
     m_movements[MOVE_RIGHT] = {1,0};
     m_movements[MOVE_LEFT] = {-1,0};
@@ -27,34 +25,26 @@ DynamicWorld::DynamicWorld()
             m_loadedTileSets[*xit] = tileSet;
         }
     }
-    tLoader->load("data/scenario1/tilemap.txt", m_tileSet);
     delete tLoader;
 }
 
 DynamicWorld::~DynamicWorld()
 {
-    delete m_party;
+    //dtor
 }
 
-Party* DynamicWorld::getParty() const
+void DynamicWorld::move(Move & move)
 {
-    return m_party;
-}
-
-Position DynamicWorld::move(Move & move)
-{
-    Move moveCopy = move;/** @todo OLD WAY */
-
     if (MOVE_NOT != move)
     {
         Position previewTile = m_partyTile;
         Position previewZone = m_partyZone;
         previewTile += m_movements[move];
 
-        if (m_outOfZone(previewTile, getZone(getPartyZone())))
+        if (m_outOfSet(previewTile, getZone(getPartyZone())))
         {
             previewZone += m_movements[move];
-            if (m_outOfZoneSet(previewZone, m_zoneSet))
+            if (m_outOfSet(previewZone, m_zoneSet))
             {
                 move = MOVE_NOT;
             }
@@ -78,7 +68,7 @@ Position DynamicWorld::move(Move & move)
                     break;
                 }
 
-                if (m_outOfZone(previewTile, getZone(getPartyZone())))
+                if (m_outOfSet(previewTile, getZone(getPartyZone())))
                 {
                     move = MOVE_NOT;
                 }
@@ -111,81 +101,7 @@ Position DynamicWorld::move(Move & move)
                 m_partyTile = previewTile;
             }
         }
-
     }
-
-    /**
-    * old way
-    */
-    Position position = m_party->getPosition();
-
-    if (m_move(moveCopy, position))
-    {
-        Tile tile = getTile(position.x, position.y);
-        switch (tile)
-        {
-        case TILE_MOUNT:
-        case TILE_WATER:
-        case TILE_NONE:
-            moveCopy = MOVE_NOT;
-            break;
-        default:
-            break;
-        }
-    }
-    else
-    {
-        moveCopy = MOVE_NOT;
-    }
-
-    return m_party->move(moveCopy);
-}
-
-Tile DynamicWorld::getTile(unsigned int const x, unsigned int const y) const
-{
-    if ((m_tileSet.size() <= y) || (m_tileSet[y].size() <= x))
-    {
-        return TILE_NONE;
-    }
-    else
-    {
-        return m_tileSet[y][x];
-    }
-}
-
-DynamicWorld::TileSet DynamicWorld::getTileSet() const
-{
-    return m_tileSet;
-}
-
-bool DynamicWorld::m_move(Move const move, Position& position) const
-{
-    bool moved = false;
-    switch (move)
-    {
-    case MOVE_DOWN:
-        moved = true;
-        position.y++;
-        break;
-    case MOVE_LEFT:
-        moved = position.x > 0;
-        moved && position.x--;
-        break;
-    case MOVE_NOT:
-        break;
-    case MOVE_RIGHT:
-        moved = true;
-        position.x++;
-        break;
-    case MOVE_UP:
-        moved = position.y > 0;
-        moved && position.y--;
-        break;
-    default:
-        break;
-    }
-
-    return moved;
 }
 
 DynamicWorld::ZoneSet DynamicWorld::getZoneSet() const
@@ -205,12 +121,12 @@ const DynamicWorld::TileSet& DynamicWorld::getZone(std::string const& key) const
 
 DynamicWorld::TileSet DynamicWorld::getZone(Position const& pos)
 {
-    return m_loadedTileSets.at(m_zoneSet[pos.y][pos.x]);
+    return getZone(m_zoneSet[pos.y][pos.x]);
 }
 
 const DynamicWorld::TileSet& DynamicWorld::getZone(Position const& pos) const
 {
-    return m_loadedTileSets.at(m_zoneSet[pos.y][pos.x]);
+    return getZone(m_zoneSet[pos.y][pos.x]);
 }
 
 Position DynamicWorld::getPartyTile() const
@@ -223,12 +139,12 @@ std::string DynamicWorld::getPartyZone() const
     return m_zoneSet[m_partyZone.y][m_partyZone.x];
 }
 
-bool DynamicWorld::m_outOfZone(Position const& pos, DynamicWorld::TileSet const& tileSet) const
+bool DynamicWorld::m_outOfSet(Position const& pos, DynamicWorld::TileSet const& tileSet) const
 {
     return ((pos.x < 0) || (pos.y < 0) || (pos.y >= tileSet.size()) || (pos.x >= tileSet[pos.y].size()));
 }
 
-bool DynamicWorld::m_outOfZoneSet(Position const& pos, DynamicWorld::ZoneSet const& zoneSet) const
+bool DynamicWorld::m_outOfSet(Position const& pos, DynamicWorld::ZoneSet const& zoneSet) const
 {
     return ((pos.x < 0) || (pos.y < 0) || (pos.y >= zoneSet.size()) || (pos.x >= zoneSet[pos.y].size()));
 }

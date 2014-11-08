@@ -23,7 +23,7 @@ public:
 
     enum Mode {FORWARD, REVERSE};
 
-    void push(std::string const text);
+    void push(std::string const& text);
     void render(SDL_Surface* screen, TextRollZone::Mode const reverse = FORWARD) const;
     void clear();
 

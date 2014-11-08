@@ -11,17 +11,17 @@ ZoneDisplayZone::~ZoneDisplayZone()
     TileDisplayZone::free();
 }
 
-void ZoneDisplayZone::render(SDL_Surface* screen, DynamicWorld /** @todo const*/& world) const
+void ZoneDisplayZone::render(SDL_Surface* screen, DynamicWorld const& world) const
 {
     SDL_Rect displayPos = m_displayPos;
     SDL_Rect tileSetSize;
     Uint16 maxHeight = 0;
 
-    std::vector<std::vector<std::string> > zoneSet = world.getZoneSet();
+    ZoneDisplayZone::ZoneSet zoneSet = world.getZoneSet();
 
-    for(std::vector<std::vector<std::string> >::iterator zYit = zoneSet.begin(); zoneSet.end() != zYit; ++zYit)
+    for(ZoneDisplayZone::ZoneSet::iterator zYit = zoneSet.begin(); zoneSet.end() != zYit; ++zYit)
     {
-        for (std::vector<std::string>::iterator zXit = zYit->begin(); zYit->end() != zXit; ++zXit)
+        for (ZoneDisplayZone::ZoneSetLine::iterator zXit = zYit->begin(); zYit->end() != zXit; ++zXit)
         {
             TileDisplayZone tileDisplayZone(displayPos.x, displayPos.y);
             tileSetSize = tileDisplayZone.render(screen, world.getZone(*zXit));
@@ -39,6 +39,4 @@ void ZoneDisplayZone::render(SDL_Surface* screen, DynamicWorld /** @todo const*/
         displayPos.y += maxHeight;
         maxHeight = 0;
     }
-
-
 }
