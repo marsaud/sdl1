@@ -4,7 +4,7 @@
 #include <vector>
 
 #include <SDL/SDL.h>
-#include <SDL/SDL_Image.h>
+#include <SDL/SDL_image.h>
 
 #include "common.h"
 #include "DynamicWorld.h"

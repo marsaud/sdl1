@@ -25,6 +25,10 @@ void ZoneSetLoader::load(std::string const& mapFilePath, ZoneSetLoader::ZoneSet 
         zoneMap.push_back(ZoneSetLoader::ZoneSetLine(0));
         while (std::getline(streamLine, cell, ';'))
         {
+            if ('\r' == *(cell.cend()-1))
+            {
+                cell.erase(cell.end()-1);
+            }
             zoneMap.rbegin()->push_back(cell);
         }
     }
