@@ -4,7 +4,6 @@
 #include <SDL/SDL.h>
 
 #include "common.h"
-#include "DynamicWorld.h"
 
 class MovementController
 {

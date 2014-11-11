@@ -13,6 +13,7 @@ void TileDisplayZone::ms_loadTiles()
 {
     ms_tiles = new SDL_Surface*[TILE_LIST_SIZE];
 
+    ms_tiles[TILE_CAVE] = IMG_Load("images/cave.png");
     ms_tiles[TILE_DIRT] = IMG_Load("images/dirt.png");
     ms_tiles[TILE_FOREST] = IMG_Load("images/forest.png");
     ms_tiles[TILE_GRASS] = IMG_Load("images/grass.png");

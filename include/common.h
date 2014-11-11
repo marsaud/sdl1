@@ -13,15 +13,21 @@ struct Position
 };
 
 Position operator+(Position const& pos, Movement const& mov);
+bool operator==(Position const& posl, Position const& posr);
 
 enum Move
 {
     MOVE_NOT, MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_LIST_SIZE
 };
 
+enum Action
+{
+    ACTION_NONE, ACTION_ENTER_ZONE, ACTION_LIST_SIZE
+};
+
 enum Tile
 {
-    TILE_NONE, TILE_DIRT, TILE_FOREST, TILE_GRASS, TILE_HILL, TILE_MOUNT, TILE_WATER, TILE_LIST_SIZE
+    TILE_NONE, TILE_CAVE, TILE_DIRT, TILE_FOREST, TILE_GRASS, TILE_HILL, TILE_MOUNT, TILE_WATER, TILE_LIST_SIZE
 };
 
 #endif // COMMON_H_INCLUDED

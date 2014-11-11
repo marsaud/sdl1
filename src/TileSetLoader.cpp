@@ -33,6 +33,9 @@ bool TileSetLoader::load(std::string const& tileMapPath, TileSetLoader::TileSet 
 
             switch (tileChar)
             {
+            case TileSetLoader::CAVE:
+                tile = TILE_CAVE;
+                break;
             case TileSetLoader::DIRT:
                 tile = TILE_DIRT;
                 break;
@@ -58,6 +61,7 @@ bool TileSetLoader::load(std::string const& tileMapPath, TileSetLoader::TileSet 
 
             switch (tileChar)
             {
+            case TileSetLoader::CAVE:
             case TileSetLoader::DIRT:
             case TileSetLoader::GRASS:
             case TileSetLoader::FOREST:

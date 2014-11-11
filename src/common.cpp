@@ -17,3 +17,8 @@ Position& Position::operator+=(Movement const& mov)
 
     return *this;
 }
+
+bool operator==(Position const& posl, Position const& posr)
+{
+    return ((posl.x == posr.x) && (posl.y == posr.y));
+}

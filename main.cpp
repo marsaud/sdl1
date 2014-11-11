@@ -18,6 +18,7 @@
 #include "MessageProcessor.h"
 #include "DynamicWorld.h"
 #include "MovementController.h"
+#include "ActionController.h"
 #include "ScreenZone.h"
 #include "TextRollZone.h"
 #include "ZoneDisplayZone.h"
@@ -34,28 +35,31 @@ template < typename T > std::string to_string( const T& n )
 
 int main ( int argc, char** argv )
 {
-    DynamicWorld world;
-
     SDL_Surface* screen = NULL;
     TTF_Font* font = NULL;
-    SDL_Event event;
 
+    if (1 == initVideo(SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/coure.fon", FONT_SIZE, screen, font))
+    {
+        return 1;
+    }
+
+    DynamicWorld world("scenario1");
+
+    SDL_Event event;
     Logger log;
     MessageProcessor messageProcessor;
 
     std::string display = "";
 
     MovementController movementController;
+    ActionController actionController;
+
     Move move = MOVE_NOT;
+    Action action = ACTION_NONE;
 
     ScreenZone* screenZoneRight = NULL;
     TextRollZone* textRollZone = NULL;
     ZoneDisplayZone* zoneDisplayZone = NULL;
-
-    if (1 == initVideo(SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/coure.fon", FONT_SIZE, screen, font))
-    {
-        return 1;
-    }
 
     screenZoneRight = new ScreenZone(TEXT_ZONE_RIGHT, TEXT_ZONE_TOP, font);
     textRollZone = new TextRollZone(TEXT_ZONE_LEFT, TEXT_ZONE_TOP, font);
@@ -102,6 +106,9 @@ int main ( int argc, char** argv )
             }
 
             move = movementController.handleEvent(event);
+            action = actionController.handleEvent(event);
+
+            world.process(action);
             world.move(move);
 
         } // end of event processing
