@@ -26,7 +26,7 @@ public:
 
     std::string getPartyZone() const;
     Position getPartyTile() const;
-    DynamicWorld::ZoneSet getZoneSet() const;
+    DynamicWorld::ZoneSet getZoneSet() const; /** @todo const& overload ? */
     DynamicWorld::TileSet getZone(std::string const& key);
     DynamicWorld::TileSet getZone(Position const& pos);
     const DynamicWorld::TileSet& getZone(std::string const& key) const;

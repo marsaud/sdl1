@@ -17,7 +17,7 @@ void ZoneDisplayZone::render(SDL_Surface* screen, DynamicWorld const& world) con
     SDL_Rect tileSetSize;
     Uint16 maxHeight = 0;
 
-    ZoneDisplayZone::ZoneSet zoneSet = world.getZoneSet();
+    ZoneDisplayZone::ZoneSet zoneSet = world.getZoneSet(); /** @todo why not const ? */
 
     for(ZoneDisplayZone::ZoneSet::iterator zYit = zoneSet.begin(); zoneSet.end() != zYit; ++zYit)
     {
