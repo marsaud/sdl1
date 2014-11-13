@@ -4,14 +4,12 @@
 #include <stdlib.h>
 #endif
 
-#include "main.h"
-
-#include <iostream>
 #include <string>
 #include <sstream>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 
+#include "main.h"
 #include "common.h"
 #include "init.h"
 #include "Logger.h"
@@ -65,10 +63,16 @@ int main ( int argc, char** argv )
     textRollZone = new TextRollZone(TEXT_ZONE_LEFT, TEXT_ZONE_TOP, font);
     zoneDisplayZone = new ZoneDisplayZone(0,0);
 
+    Uint32 referenceTime;
+    Uint32 currentTime;
+    Uint32 ellapsedTime;
+
     // program main loop
     bool done = false;
     while (!done)
     {
+        referenceTime = SDL_GetTicks();
+
         // event processing loop
         while (SDL_PollEvent(&event))
         {
@@ -123,7 +127,12 @@ int main ( int argc, char** argv )
 
         SDL_Flip(screen);
 
-        SDL_Delay(40);
+        currentTime = SDL_GetTicks();
+        ellapsedTime = currentTime - referenceTime;
+        if(ellapsedTime < FRAME_LENGTH)
+        {
+            SDL_Delay(FRAME_LENGTH - ellapsedTime);
+        }
     } // end main loop
 
     delete textRollZone;
@@ -131,6 +140,5 @@ int main ( int argc, char** argv )
 
     quitVideo(screen, font);
 
-    std::cout << "Exited cleanly" << std::endl;
     return EXIT_SUCCESS;
 }

@@ -9,11 +9,7 @@ DynamicWorld::DynamicWorld(std::string const& scenario)
     m_movements[MOVE_DOWN] = {0,1};
     m_movements[MOVE_UP] = {0,-1};
 
-    m_loadSetData("data/" + scenario + "/" + scenario + ".scn");
-    m_loadSet(scenario, m_currentSet);
-    m_zoneLinker = new ZoneLinker("data/" + scenario + "/" + m_currentSet + "/zone.links");
-
-    m_scenario = scenario;
+    m_bootScenario(scenario);
 }
 
 DynamicWorld::~DynamicWorld()
@@ -119,7 +115,7 @@ void DynamicWorld::process(Action & action)
     switch (action)
     {
     case ACTION_ENTER_ZONE:
-        m_tryChangeSet(action);
+        m_link(action);
         break;
     default:
         action = ACTION_NONE;
@@ -127,7 +123,7 @@ void DynamicWorld::process(Action & action)
     }
 }
 
-void DynamicWorld::m_tryChangeSet(Action & action)
+void DynamicWorld::m_link(Action & action)
 {
     const ZoneLinker::ZoneLink* zLink = m_zoneLinker->find(m_partyZone, m_partyTile);
 
@@ -220,9 +216,9 @@ bool DynamicWorld::m_outOfSet(Position const& pos, DynamicWorld::ZoneSet const& 
     return ((pos.x < 0) || (pos.y < 0) || (pos.y >= zoneSet.size()) || (pos.x >= zoneSet[pos.y].size()));
 }
 
-void DynamicWorld::m_loadSetData(std::string const& filePath)
+void DynamicWorld::m_bootScenario(std::string const& scenario)
 {
-    std::ifstream dataFile(filePath);
+    std::ifstream dataFile("data/" + scenario + "/boot.scn");
     std::string line;
 
     /** @todo All here is to secure */
@@ -241,11 +237,30 @@ void DynamicWorld::m_loadSetData(std::string const& filePath)
         streamLine >> word;
         if ("start" == word)
         {
-            streamLine >> m_currentSet;
-            streamLine >> m_partyZone.x;
-            streamLine >> m_partyZone.y;
-            streamLine >> m_partyTile.x;
-            streamLine >> m_partyTile.y;
+            streamLine >> word;
+            ZoneLinker* linker = new ZoneLinker("data/" + scenario + "/" + word + "/zone.links");
+            const ZoneLinker::ZoneLink* startLink = linker->find("start");
+            if (NULL != startLink)
+            {
+                /** @todo check for coherence */
+
+                m_loadSet(scenario, word);
+
+                m_currentSet = word;
+                m_partyZone = startLink->zone;
+                m_partyTile = startLink->tile;
+                m_zoneLinker = linker;
+
+                m_scenario = scenario;
+            }
+            else
+            {
+                /** @todo throw exception */
+            }
+        }
+        else
+        {
+            /** @todo throw exception */
         }
     }
 

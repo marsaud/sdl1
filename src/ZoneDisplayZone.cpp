@@ -29,7 +29,7 @@ void ZoneDisplayZone::render(SDL_Surface* screen, DynamicWorld const& world) con
             if (world.getPartyZone() == *zXit)
             {
                 /** @todo Temporary */
-                tileDisplayZone.render(screen, world.getPartyTile(), TILE_NONE);
+                tileDisplayZone.render(screen, world.getPartyTile(), TILE_PARTY);
             }
 
             displayPos.x += tileSetSize.w;

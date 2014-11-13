@@ -1,0 +1,2 @@
+link1 0 0 1 1 set_out1 link2
+link2 0 0 9 2 set_out1 link3

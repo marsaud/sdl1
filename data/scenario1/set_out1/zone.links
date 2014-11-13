@@ -1,4 +1,4 @@
-start 0 0 0 0 # #
+start 1 0 1 1 # #
 link1 1 2 1 0 set_out2 link1
-link2 0 1 1 0 set_out1 link3
-link3 0 1 1 2 set_out1 link2
+link2 0 1 1 0 set_out3 link1
+link3 0 1 1 2 set_out3 link2

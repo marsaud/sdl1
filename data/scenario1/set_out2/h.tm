@@ -1,3 +1,0 @@
-hhh
-www
-mmm

@@ -4,6 +4,8 @@
 #define SCREEN_HEIGHT   720
 #define SCREEN_WIDTH    1280
 
+#define FRAME_LENGTH    40
+
 #define TEXT_ZONE_TOP   576
 #define TEXT_ZONE_LEFT  20
 #define TEXT_ZONE_RIGHT 660

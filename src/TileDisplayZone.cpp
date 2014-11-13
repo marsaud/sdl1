@@ -20,8 +20,8 @@ void TileDisplayZone::ms_loadTiles()
     ms_tiles[TILE_HILL] = IMG_Load("images/hills.png");
     ms_tiles[TILE_MOUNT] = IMG_Load("images/mount.png");
     ms_tiles[TILE_WATER] = IMG_Load("images/water.png");
-    /** @todo Temporary */
-    ms_tiles[TILE_NONE] = IMG_Load("images/warrior.png");
+    ms_tiles[TILE_PARTY] = IMG_Load("images/warrior.png");
+    ms_tiles[TILE_NONE] = IMG_Load("images/none.png");
 }
 
 void TileDisplayZone::ms_computeTileMask()
