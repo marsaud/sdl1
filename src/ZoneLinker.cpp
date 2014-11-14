@@ -1,5 +1,7 @@
 #include "ZoneLinker.h"
 
+const std::string ZoneLinker::ZONE_LINK_FILE = "zone.links";
+
 ZoneLinker::ZoneLinker(std::string const& filePath)
 {
     m_loadedLinks.clear();
@@ -34,7 +36,7 @@ ZoneLinker::~ZoneLinker()
     //dtor
 }
 
-const ZoneLinker::ZoneLink* ZoneLinker::find(Position const& zone, Position const& tile)
+const ZoneLinker::ZoneLink* ZoneLinker::find(Position const& zone, Position const& tile) const
 {
     const ZoneLinker::ZoneLink* ptr = NULL;
 
@@ -49,9 +51,9 @@ const ZoneLinker::ZoneLink* ZoneLinker::find(Position const& zone, Position cons
     return ptr;
 }
 
-const ZoneLinker::ZoneLink* ZoneLinker::find(std::string const& tag)
+const ZoneLinker::ZoneLink* ZoneLinker::find(std::string const& tag) const
 {
-    ZoneLinker::ZoneLink* ptr = NULL;
+    const ZoneLinker::ZoneLink* ptr = NULL;
 
     if (m_loadedLinks.find(tag) != m_loadedLinks.cend())
     {

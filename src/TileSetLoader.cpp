@@ -1,5 +1,7 @@
 #include "TileSetLoader.h"
 
+const std::string TileSetLoader::TILEMAP_FILE_EXT = "tm";
+
 TileSetLoader::TileSetLoader()
 {
     //ctor

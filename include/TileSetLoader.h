@@ -1,6 +1,7 @@
 #ifndef TILESETLOADER_H
 #define TILESETLOADER_H
 
+#include <string>
 #include <vector>
 #include <fstream>
 
@@ -14,6 +15,8 @@ public:
 
     typedef std::vector<Tile> TileSetLine;
     typedef std::vector<TileSetLoader::TileSetLine> TileSet;
+
+    static const std::string TILEMAP_FILE_EXT;
 
     bool load(std::string const& tileMapPath, TileSetLoader::TileSet & tileSet) const;
 protected:

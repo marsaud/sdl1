@@ -15,6 +15,8 @@ public:
     typedef std::vector<std::string> ZoneSetLine;
     typedef std::vector<ZoneSetLoader::ZoneSetLine> ZoneSet;
 
+    static const std::string ZONESET_FILE;
+
     void load(std::string const& zoneSetFilePath, ZoneSetLoader::ZoneSet & zoneSet) const;
 protected:
 private:

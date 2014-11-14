@@ -1,5 +1,7 @@
 #include "ZoneSetLoader.h"
 
+const std::string ZoneSetLoader::ZONESET_FILE = "zonemap.zm";
+
 ZoneSetLoader::ZoneSetLoader()
 {
     //ctor

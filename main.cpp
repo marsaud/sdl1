@@ -20,6 +20,7 @@
 #include "ScreenZone.h"
 #include "TextRollZone.h"
 #include "ZoneDisplayZone.h"
+#include "PartyPlayer.h"
 
 namespace patch
 {
@@ -66,6 +67,9 @@ int main ( int argc, char** argv )
     Uint32 referenceTime;
     Uint32 currentTime;
     Uint32 ellapsedTime;
+
+    TileDisplayZone::init();
+    PartyPlayer::init();
 
     // program main loop
     bool done = false;
@@ -134,6 +138,9 @@ int main ( int argc, char** argv )
             SDL_Delay(FRAME_LENGTH - ellapsedTime);
         }
     } // end main loop
+
+    TileDisplayZone::free();
+    PartyPlayer::free();
 
     delete textRollZone;
     delete screenZoneRight;

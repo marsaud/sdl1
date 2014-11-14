@@ -24,8 +24,10 @@ class ZoneLinker
         };
         typedef struct _zone_link ZoneLink;
 
-        const ZoneLinker::ZoneLink* find(Position const& zone, Position const& tile);
-        const ZoneLinker::ZoneLink* find(std::string const& tag);
+        static const std::string ZONE_LINK_FILE;
+
+        const ZoneLinker::ZoneLink *find(Position const& zone, Position const& tile) const;
+        const ZoneLinker::ZoneLink *find(std::string const& tag) const;
 
     protected:
     private:

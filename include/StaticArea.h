@@ -13,7 +13,7 @@
 class StaticArea
 {
 public:
-    StaticArea(std::string const& key, std::string const& areaDirPath);
+    StaticArea(std::string const& key, std::string const& scenarioDir);
     virtual ~StaticArea();
 
     typedef std::vector<Tile> TileSetLine;
@@ -22,11 +22,12 @@ public:
     typedef std::vector<StaticArea::ZoneSetLine> ZoneSet;
     typedef std::unordered_map<std::string,StaticArea::TileSet> TileSetMapping;
 
-    StaticArea::ZoneSet getZoneSet() const; /** @todo const overload ? */
-    StaticArea::TileSet getZone(std::string const& key);
-    StaticArea::TileSet getZone(Position const& pos);
+    StaticArea::ZoneSet getZoneSet() const; /** @todo const& overload ? */
+    StaticArea::TileSet getZone(std::string const& key); /** @todo usefull without const ? */
+    StaticArea::TileSet getZone(Position const& pos); /** @todo usefull without const ? */
     const StaticArea::TileSet& getZone(std::string const& key) const;
     const StaticArea::TileSet& getZone(Position const& pos) const;
+    const ZoneLinker *getLinker() const;
 
 protected:
 private:
@@ -34,6 +35,8 @@ private:
     StaticArea::ZoneSet m_zoneSet;
     StaticArea::TileSetMapping m_loadedTileSets;
     ZoneLinker* m_zoneLinker = NULL;
+
+    void m_loadSet(std::string const& scenarioDir);
 };
 
 #endif // STATICAREA_H
