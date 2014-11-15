@@ -15,6 +15,9 @@
 #include "Logger.h"
 #include "MessageProcessor.h"
 #include "DynamicWorld.h"
+
+#include "PartyPlayer.h"
+
 #include "MovementController.h"
 #include "ActionController.h"
 #include "ScreenZone.h"
@@ -34,15 +37,16 @@ template < typename T > std::string to_string( const T& n )
 
 int main ( int argc, char** argv )
 {
-    SDL_Surface* screen = NULL;
-    TTF_Font* font = NULL;
+    SDL_Surface *screen = NULL;
+    TTF_Font *font = NULL;
 
     if (1 == initVideo(SCREEN_WIDTH, SCREEN_HEIGHT, "fonts/coure.fon", FONT_SIZE, screen, font))
     {
         return 1;
     }
 
-    DynamicWorld world("scenario1");
+    TileDisplayZone::init();
+    PartyPlayer::init();
 
     SDL_Event event;
     Logger log;
@@ -56,20 +60,15 @@ int main ( int argc, char** argv )
     Move move = MOVE_NOT;
     Action action = ACTION_NONE;
 
-    ScreenZone* screenZoneRight = NULL;
-    TextRollZone* textRollZone = NULL;
-    ZoneDisplayZone* zoneDisplayZone = NULL;
-
-    screenZoneRight = new ScreenZone(TEXT_ZONE_RIGHT, TEXT_ZONE_TOP, font);
-    textRollZone = new TextRollZone(TEXT_ZONE_LEFT, TEXT_ZONE_TOP, font);
-    zoneDisplayZone = new ZoneDisplayZone(0,0);
+    TextRollZone *textRollZone = new TextRollZone(TEXT_ZONE_LEFT, TEXT_ZONE_TOP, font);
+    ZoneDisplayZone *zoneDisplayZone = new ZoneDisplayZone(0,0);
 
     Uint32 referenceTime;
     Uint32 currentTime;
     Uint32 ellapsedTime;
 
-    TileDisplayZone::init();
-    PartyPlayer::init();
+    StaticWorld *world = new StaticWorld("scenario1", "data");
+    PartyPlayer *player = new PartyPlayer(world);
 
     // program main loop
     bool done = false;
@@ -116,18 +115,15 @@ int main ( int argc, char** argv )
             move = movementController.handleEvent(event);
             action = actionController.handleEvent(event);
 
-            world.process(action);
-            world.move(move);
+            player->process(action);
+            player->move(move);
 
         } // end of event processing
 
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         textRollZone->render(screen, TextRollZone::REVERSE);
-        zoneDisplayZone->render(screen, world);
-
-        // debug fashion
-        screenZoneRight->render(screen, patch::to_string(world.getPartyTile().x) + ":" + patch::to_string(world.getPartyTile().y));
+        zoneDisplayZone->render(screen, world->getArea(player->getArea()), player);
 
         SDL_Flip(screen);
 
@@ -143,7 +139,9 @@ int main ( int argc, char** argv )
     PartyPlayer::free();
 
     delete textRollZone;
-    delete screenZoneRight;
+    delete zoneDisplayZone;
+    delete world;
+    delete player;
 
     quitVideo(screen, font);
 

@@ -20,6 +20,11 @@ public:
     static void init();
     static void free();
 
+    Position getTile() const;
+    Position getZone() const;
+    std::string getZoneKey() const;
+    std::string getArea() const;
+
     void process(Action & action);
     void move(Move & move);
 protected:

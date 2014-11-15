@@ -7,6 +7,8 @@
 
 #include "common.h"
 #include "DynamicWorld.h"
+#include "StaticArea.h"
+#include "PartyPlayer.h"
 #include "TileDisplayZone.h"
 
 class ZoneDisplayZone
@@ -19,6 +21,7 @@ public:
     typedef std::vector<ZoneDisplayZone::ZoneSetLine> ZoneSet;
 
     void render(SDL_Surface* screen, DynamicWorld  const& world) const;
+    void render(SDL_Surface* screen, const StaticArea* area, PartyPlayer* player) const;
 protected:
 private:
     SDL_Rect m_displayPos;

@@ -147,6 +147,23 @@ void PartyPlayer::move(Move & move)
     }
 }
 
+    Position PartyPlayer::getTile() const
+    {
+        return m_tile;
+    }
+    Position PartyPlayer::getZone() const
+    {
+        return m_zone;
+    }
+    std::string PartyPlayer::getZoneKey() const
+    {
+        return m_world->getArea(m_area)->getZoneSet()[m_zone.y][m_zone.x];
+    }
+    std::string PartyPlayer::getArea() const
+    {
+        return m_area;
+    }
+
 bool PartyPlayer::m_outOfSet(Position const& pos, PartyPlayer::TileSet const& tileSet) const
 {
     return ((pos.x < 0) || (pos.y < 0) || (pos.y >= tileSet.size()) || (pos.x >= tileSet[pos.y].size()));

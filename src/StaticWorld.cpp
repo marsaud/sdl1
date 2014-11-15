@@ -7,6 +7,8 @@ StaticWorld::StaticWorld(std::string const& scenario, std::string const& dataDir
     m_dir = dataDir;
     m_scenario = scenario;
     m_loadedAreas.clear();
+
+    m_bootWorld();
 }
 
 StaticWorld::~StaticWorld()

@@ -37,6 +37,9 @@ bool MessageProcessor::process(SDL_Event const& event, Logger & log) const
         case SDLK_RIGHT:
             message = "Right";
             break;
+        case SDLK_e:
+            message = "Enter";
+            break;
         default:
             message = "?";
             break;
