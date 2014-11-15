@@ -13,6 +13,7 @@ struct Position
 };
 
 Position operator+(Position const& pos, Movement const& mov);
+
 bool operator==(Position const& posl, Position const& posr);
 
 enum Move

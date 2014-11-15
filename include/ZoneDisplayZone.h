@@ -6,7 +6,6 @@
 #include <SDL/SDL.h>
 
 #include "common.h"
-#include "DynamicWorld.h"
 #include "StaticArea.h"
 #include "PartyPlayer.h"
 #include "TileDisplayZone.h"
@@ -20,7 +19,6 @@ public:
     typedef std::vector<std::string> ZoneSetLine;
     typedef std::vector<ZoneDisplayZone::ZoneSetLine> ZoneSet;
 
-    void render(SDL_Surface* screen, DynamicWorld  const& world) const;
     void render(SDL_Surface* screen, const StaticArea* area, PartyPlayer* player) const;
 protected:
 private:

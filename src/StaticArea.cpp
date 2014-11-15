@@ -35,7 +35,7 @@ void StaticArea::m_loadSet(std::string const& areaDir)
     delete tLoader;
 }
 
-StaticArea::ZoneSet StaticArea::getZoneSet() const /** @todo const overload ? */
+const StaticArea::ZoneSet& StaticArea::getZoneSet() const /** @todo const overload ? */
 {
     return m_zoneSet;
 }

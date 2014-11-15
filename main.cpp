@@ -12,18 +12,19 @@
 #include "main.h"
 #include "common.h"
 #include "init.h"
-#include "Logger.h"
-#include "MessageProcessor.h"
-#include "DynamicWorld.h"
 
+#include "StaticWorld.h"
 #include "PartyPlayer.h"
 
+#include "Logger.h"
+#include "MessageProcessor.h"
 #include "MovementController.h"
 #include "ActionController.h"
+
 #include "ScreenZone.h"
 #include "TextRollZone.h"
 #include "ZoneDisplayZone.h"
-#include "PartyPlayer.h"
+
 
 namespace patch
 {

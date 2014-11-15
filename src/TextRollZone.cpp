@@ -21,13 +21,13 @@ void TextRollZone::push(std::string const& text)
     }
 }
 
-void TextRollZone::render(SDL_Surface* screen, TextRollZone::Mode const reverse) const
+void TextRollZone::render(SDL_Surface* screen, TextRollZone::Mode const mode) const
 {
     SDL_Rect textPos = m_textPos;
     SDL_Surface* textZone = NULL;
     int step = FONT_SIZE + TextRollZone::SPACING;
 
-    if (REVERSE == reverse)
+    if (REVERSE == mode)
     {
         textPos.y += ((TextRollZone::BUFFER_SIZE - 1) * step);
         step = -step;
