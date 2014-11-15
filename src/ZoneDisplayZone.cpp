@@ -12,10 +12,10 @@ ZoneDisplayZone::~ZoneDisplayZone()
 
 void ZoneDisplayZone::render(SDL_Surface* screen, const StaticArea* area, PartyPlayer* player, SDL_Rect const offset) const
 {
-    /*std::unordered_map<int, PartyPlayer*> players;
+    std::unordered_map<int, PartyPlayer*> players;
 
     players[player->getKey()] = player;
-    render(screen, area, players, offset);*/
+    render(screen, area, players, offset);
 }
 
 void ZoneDisplayZone::render(SDL_Surface* screen, const StaticArea* area, std::unordered_map<int, PartyPlayer*> players, SDL_Rect const offset) const
