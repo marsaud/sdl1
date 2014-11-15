@@ -1,6 +1,7 @@
 #include "PartyPlayer.h"
 
 Movement* PartyPlayer::ms_movements = NULL;
+int PartyPlayer::ms_key = 0;
 
 PartyPlayer::PartyPlayer(StaticWorld *world)
 {
@@ -14,6 +15,8 @@ PartyPlayer::PartyPlayer(StaticWorld *world)
     m_zone = startLink->zone;
     m_tile = startLink->tile;
     m_world = world;
+
+    m_key = ++ms_key;
 }
 
 PartyPlayer::~PartyPlayer()
@@ -56,18 +59,18 @@ void PartyPlayer::m_link(Action & action)
     const ZoneLinker::ZoneLink* zLink = m_world->getArea(m_area)->getLinker()->find(m_zone, m_tile);
     if ((NULL != zLink) && ("#" != zLink->targetSet))
     {
-            const ZoneLinker* targetLinker = m_world->getArea(zLink->targetSet)->getLinker();
-            const ZoneLinker::ZoneLink* targetLink = targetLinker->find(zLink->targetLinkTag);
-            if (NULL != targetLink)
-            {
-                m_area = zLink->targetSet;
-                m_zone = targetLink->zone;
-                m_tile = targetLink->tile;
-            }
-            else
-            {
-                action = ACTION_NONE;
-            }
+        const ZoneLinker* targetLinker = m_world->getArea(zLink->targetSet)->getLinker();
+        const ZoneLinker::ZoneLink* targetLink = targetLinker->find(zLink->targetLinkTag);
+        if (NULL != targetLink)
+        {
+            m_area = zLink->targetSet;
+            m_zone = targetLink->zone;
+            m_tile = targetLink->tile;
+        }
+        else
+        {
+            action = ACTION_NONE;
+        }
     }
     else
     {
@@ -147,22 +150,30 @@ void PartyPlayer::move(Move & move)
     }
 }
 
-    Position PartyPlayer::getTile() const
-    {
-        return m_tile;
-    }
-    Position PartyPlayer::getZone() const
-    {
-        return m_zone;
-    }
-    std::string PartyPlayer::getZoneKey() const
-    {
-        return m_world->getArea(m_area)->getZoneSet()[m_zone.y][m_zone.x];
-    }
-    std::string PartyPlayer::getArea() const
-    {
-        return m_area;
-    }
+Position PartyPlayer::getTile() const
+{
+    return m_tile;
+}
+
+Position PartyPlayer::getZone() const
+{
+    return m_zone;
+}
+
+std::string PartyPlayer::getZoneKey() const
+{
+    return m_world->getArea(m_area)->getZoneSet()[m_zone.y][m_zone.x];
+}
+
+std::string PartyPlayer::getArea() const
+{
+    return m_area;
+}
+
+int PartyPlayer::getKey() const
+{
+    return m_key;
+}
 
 bool PartyPlayer::m_outOfSet(Position const& pos, PartyPlayer::TileSet const& tileSet) const
 {

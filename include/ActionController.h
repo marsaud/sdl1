@@ -12,6 +12,7 @@ public:
     virtual ~ActionController();
 
     Action handleEvent(SDL_Event const& event) const;
+    void handleEvent(SDL_Event const& event, Action & action, int & playerKey) const;
 protected:
 private:
 };

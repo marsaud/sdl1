@@ -2,6 +2,7 @@
 #define ZONEDISPLAYZONE_H
 
 #include <vector>
+#include <unordered_map>
 
 #include <SDL/SDL.h>
 
@@ -19,7 +20,8 @@ public:
     typedef std::vector<std::string> ZoneSetLine;
     typedef std::vector<ZoneDisplayZone::ZoneSetLine> ZoneSet;
 
-    void render(SDL_Surface* screen, const StaticArea* area, PartyPlayer* player) const;
+    void render(SDL_Surface* screen, const StaticArea* area, PartyPlayer* player, SDL_Rect const offset = {0,0,0,0}) const;
+    void render(SDL_Surface* screen, const StaticArea* area, std::unordered_map<int, PartyPlayer*> players, SDL_Rect const offset = {0,0,0,0}) const;
 protected:
 private:
     SDL_Rect m_displayPos;

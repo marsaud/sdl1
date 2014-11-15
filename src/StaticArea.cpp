@@ -60,7 +60,12 @@ const StaticArea::TileSet& StaticArea::getZone(Position const& pos) const
     return getZone(m_zoneSet[pos.y][pos.x]);
 }
 
-const ZoneLinker *StaticArea::getLinker() const
+const ZoneLinker* StaticArea::getLinker() const
 {
     return m_zoneLinker;
+}
+
+std::string StaticArea::getKey() const
+{
+    return m_key;
 }

@@ -6,6 +6,7 @@
 
 #include <string>
 #include <sstream>
+#include <unordered_map>
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 
@@ -69,7 +70,22 @@ int main ( int argc, char** argv )
     Uint32 ellapsedTime;
 
     StaticWorld *world = new StaticWorld("scenario1", "data");
-    PartyPlayer *player = new PartyPlayer(world);
+
+    std::unordered_map<int, PartyPlayer*> players;
+
+    /** @todo temporary begin */
+    PartyPlayer* pl = new PartyPlayer(world);
+    players[pl->getKey()] = pl;
+    pl =  new PartyPlayer(world);
+    players[pl->getKey()] = pl;
+    pl =  new PartyPlayer(world);
+    players[pl->getKey()] = pl;
+
+    int playerMoveKey = 0;
+    int playerActionKey =0;
+
+    SDL_Rect offset;
+    /** @todo temporary end */
 
     // program main loop
     bool done = false;
@@ -113,18 +129,26 @@ int main ( int argc, char** argv )
                 }
             }
 
-            move = movementController.handleEvent(event);
-            action = actionController.handleEvent(event);
+            movementController.handleEvent(event, move, playerMoveKey);
+            actionController.handleEvent(event, action, playerActionKey);
 
-            player->process(action);
-            player->move(move);
+            if (0 != playerActionKey)
+                players[playerActionKey]->process(action);
+            if (0 != playerMoveKey)
+                players[playerMoveKey]->move(move);
 
         } // end of event processing
 
         SDL_FillRect(screen, 0, SDL_MapRGB(screen->format, 0, 0, 0));
 
         textRollZone->render(screen, TextRollZone::REVERSE);
-        zoneDisplayZone->render(screen, world->getArea(player->getArea()), player);
+
+        offset = {0,0,0,0};
+        zoneDisplayZone->render(screen, world->getArea(players[1]->getArea()), players, offset);
+        offset.x += 420;
+        zoneDisplayZone->render(screen, world->getArea(players[2]->getArea()), players, offset);
+        offset.x += 420;
+        zoneDisplayZone->render(screen, world->getArea(players[3]->getArea()), players, offset);
 
         SDL_Flip(screen);
 
@@ -136,13 +160,20 @@ int main ( int argc, char** argv )
         }
     } // end main loop
 
-    TileDisplayZone::free();
-    PartyPlayer::free();
+
+
+    for (std::unordered_map<int, PartyPlayer*>::iterator it = players.begin(); players.end() != it; ++it)
+    {
+        delete it->second;
+    }
+    players.clear();
 
     delete textRollZone;
     delete zoneDisplayZone;
     delete world;
-    delete player;
+
+    TileDisplayZone::free();
+    PartyPlayer::free();
 
     quitVideo(screen, font);
 

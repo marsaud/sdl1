@@ -22,6 +22,7 @@ public:
     typedef std::vector<StaticArea::ZoneSetLine> ZoneSet;
     typedef std::unordered_map<std::string,StaticArea::TileSet> TileSetMapping;
 
+    std::string getKey() const;
     const StaticArea::ZoneSet& getZoneSet() const;
     StaticArea::TileSet getZone(std::string const& key); /** @todo usefull without const ? */
     StaticArea::TileSet getZone(Position const& pos); /** @todo usefull without const ? */

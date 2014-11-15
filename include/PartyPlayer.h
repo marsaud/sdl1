@@ -20,6 +20,8 @@ public:
     static void init();
     static void free();
 
+    int getKey() const;
+
     Position getTile() const;
     Position getZone() const;
     std::string getZoneKey() const;
@@ -30,6 +32,9 @@ public:
 protected:
 private:
     static Movement *ms_movements;
+
+    static int ms_key;
+    int m_key;
 
     StaticWorld *m_world = NULL;
     Position m_tile;
